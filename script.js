@@ -30,3 +30,33 @@ const productos = [
 ];
 
 console.log(productos);
+function mostrarProductos() {
+    const listaComidas = document.getElementById("lista-comidas");
+    const listaBebidas = document.getElementById("lista-bebidas");
+
+    listaComidas.innerHTML = "";
+    listaBebidas.innerHTML = "";
+
+    productos.forEach(producto => {
+
+        const tarjeta = document.createElement("div");
+        tarjeta.classList.add("producto");
+
+        tarjeta.innerHTML = `
+            <div>
+                <h3>${producto.nombre}</h3>
+                <p>${producto.descripcion}</p>
+            </div>
+
+            <strong>$${producto.precio}</strong>
+        `;
+
+        if (producto.categoria === "comidas") {
+            listaComidas.appendChild(tarjeta);
+        } else if (producto.categoria === "bebidas") {
+            listaBebidas.appendChild(tarjeta);
+        }
+    });
+}
+
+mostrarProductos();
