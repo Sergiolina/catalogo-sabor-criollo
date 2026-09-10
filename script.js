@@ -86,7 +86,8 @@ function agregarAlCarrito(id) {
         });
     }
 
-    console.log("Carrito:", carrito);
+  console.log("Carrito:", carrito);
+  mostrarCarrito()
 }
 function mostrarCarrito() {
     const listaCarrito = document.getElementById("lista-carrito");
@@ -103,15 +104,55 @@ function mostrarCarrito() {
         const elemento = document.createElement("div");
 
         elemento.innerHTML = `
-            <p>
-                ${producto.nombre}
-                x${producto.cantidad}
-                - $${subtotal}
-            </p>
-        `;
+    <div class="item-carrito">
+        <strong>${producto.nombre}</strong>
+
+        <div class="controles-carrito">
+            <button onclick="disminuirCantidad(${producto.id})">−</button>
+
+            <span>${producto.cantidad}</span>
+
+            <button onclick="aumentarCantidad(${producto.id})">+</button>
+
+            <button onclick="eliminarDelCarrito(${producto.id})">
+                🗑
+            </button>
+        </div>
+
+        <strong>$${subtotal}</strong>
+    </div>
+`;
 
         listaCarrito.appendChild(elemento);
     });
 
     totalCarrito.textContent = total;
+}
+function aumentarCantidad(id) {
+    const producto = carrito.find(item => item.id === id);
+
+    if (producto) {
+        producto.cantidad++;
+        mostrarCarrito();
+    }
+}
+
+function disminuirCantidad(id) {
+    const producto = carrito.find(item => item.id === id);
+
+    if (producto) {
+        producto.cantidad--;
+
+        if (producto.cantidad <= 0) {
+            eliminarDelCarrito(id);
+        } else {
+            mostrarCarrito();
+        }
+    }
+}
+
+function eliminarDelCarrito(id) {
+    carrito = carrito.filter(item => item.id !== id);
+
+    mostrarCarrito();
 }
