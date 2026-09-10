@@ -102,3 +102,96 @@ footer {
     color: #777;
     padding: 20px;
 }
+/* =========================
+   CARRITO V2
+   ========================= */
+
+#carrito {
+    background: white;
+    margin: 30px auto;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+#carrito h2 {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.item-carrito {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.item-carrito:last-child {
+    border-bottom: none;
+}
+
+.item-carrito > strong:first-child {
+    flex: 1;
+}
+
+.controles-carrito {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.controles-carrito button {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: 6px;
+    background: #ff6b35;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.controles-carrito button:hover {
+    opacity: 0.85;
+}
+
+.controles-carrito span {
+    min-width: 25px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.total-carrito {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 2px solid #eee;
+    text-align: right;
+    font-size: 20px;
+}
+/* =========================
+   BOTÓN AGREGAR
+   ========================= */
+
+.producto button {
+    border: none;
+    border-radius: 8px;
+    background: #ff6b35;
+    color: white;
+    padding: 10px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.producto button:hover {
+    opacity: 0.9;
+    transform: scale(1.03);
+}
+
+.producto button:active {
+    transform: scale(0.96);
+}
