@@ -30,6 +30,7 @@ const productos = [
 ];
 
 console.log(productos);
+
 function mostrarProductos() {
     const listaComidas = document.getElementById("lista-comidas");
     const listaBebidas = document.getElementById("lista-bebidas");
@@ -43,12 +44,17 @@ function mostrarProductos() {
         tarjeta.classList.add("producto");
 
         tarjeta.innerHTML = `
-            <div>
-                <h3>${producto.nombre}</h3>
-                <p>${producto.descripcion}</p>
-            </div>
+    <div>
+        <h3>${producto.nombre}</h3>
+        <p>${producto.descripcion}</p>
+    </div>
 
-            <strong>$${producto.precio}</strong>
+    <div>
+        <strong>$${producto.precio}</strong>
+        <button onclick="agregarAlCarrito(${producto.id})">
+            Agregar
+        </button>
+    </div>
         `;
 
         if (producto.categoria === "comidas") {
@@ -60,3 +66,13 @@ function mostrarProductos() {
 }
 
 mostrarProductos();
+
+let carrito = [];
+
+function agregarAlCarrito(id) {
+    const producto = productos.find(producto => producto.id === id);
+
+    carrito.push(producto);
+
+    console.log("Carrito:", carrito);
+}
