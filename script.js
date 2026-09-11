@@ -127,6 +127,14 @@ function mostrarCarrito() {
     });
 
     totalCarrito.textContent = total;
+  const contadorCarrito = document.getElementById("contador-carrito");
+
+const cantidadTotal = carrito.reduce(
+    (total, producto) => total + producto.cantidad,
+    0
+);
+
+contadorCarrito.textContent = cantidadTotal;
 }
 function aumentarCantidad(id) {
     const producto = carrito.find(item => item.id === id);
