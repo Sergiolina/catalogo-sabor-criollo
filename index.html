@@ -9,24 +9,34 @@
 
 <body>
 
-    <header class="hero">
+    
+  <nav class="barra-navegacion">
 
-    <div class="encabezado-superior">
+    <a href="#inicio">🏠 Inicio</a>
+
+    <a href="#catalogo">🍽️ Catálogo</a>
+
+    <a href="#carrito">
+        🛒 Carrito
+        <span id="contador-nav">0</span>
+    </a>
+
+  </nav>
+  <header class="hero" id="inicio">
+
+    <div>
         <h1>Sabor Criollo</h1>
 
-        <a href="#carrito" class="boton-carrito">
-            🛒 Carrito
-            <span id="contador-carrito">0</span>
-        </a>
+        
     </div>
 
     <p>Comida casera hecha con sabor ❤️</p>
 
-    <a href="#productos" class="boton">Ver productos</a>
+    <a href="#catalogo" class="boton">Catalago</a>
 
-    </header>
+  </header>
 
-    <main id="productos">
+    <main id="catalogo">
 
     <section>
         <h2>🍕 Comidas</h2>
