@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Carrito | Sabor Criollo</title>
+
+    <link rel="stylesheet" href="CSS/global.css">
+    <link rel="stylesheet" href="CSS/Carrito.css">
+</head>
+
+<body>
+
+    <!-- Navegación -->
+    <nav class="barra-navegacion">
+
+        <a href="index.html">
+            🏠 Inicio
+        </a>
+
+        <a href="Catalogo.html">
+            🍽️ Catálogo
+        </a>
+
+        <a href="Carrito.html">
+            🛒 Carrito
+            <span id="contador-nav">0</span>
+        </a>
+
+    </nav>
+
+
+    <!-- Encabezado -->
+    <header class="encabezado-carrito">
+
+        <h1>Tu carrito 🛒</h1>
+
+        <p>
+            Revisa tu pedido antes de realizarlo.
+        </p>
+
+    </header>
+
+
+    <main>
+
+        <!-- Productos del carrito -->
+        <section class="carrito-contenedor">
+
+            <div id="lista-carrito"></div>
+
+        </section>
+
+
+        <!-- Resumen -->
+        <section class="resumen-carrito">
+
+            <h2>Resumen del pedido</h2>
+
+            <div class="total">
+
+                <span>Total:</span>
+
+                <strong id="total-carrito">
+                    $0
+                </strong>
+
+            </div>
+
+            <button id="boton-whatsapp" class="boton">
+                📱 Ordenar por WhatsApp
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <footer>
+
+        <p>© 2026 Sabor Criollo</p>
+
+    </footer>
+
+
+    <script src="js/Carrito.js"></script>
+
+</body>
+
+</html>

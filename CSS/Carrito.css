@@ -1,0 +1,251 @@
+/* =========================
+   ENCABEZADO
+   ========================= */
+
+.encabezado-carrito {
+    text-align: center;
+    padding: 50px 20px 30px;
+}
+
+.encabezado-carrito h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.encabezado-carrito p {
+    color: #666;
+}
+
+
+/* =========================
+   CONTENEDOR DEL CARRITO
+   ========================= */
+
+.carrito-contenedor {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+
+/* =========================
+   PRODUCTO EN EL CARRITO
+   ========================= */
+
+.item-carrito {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+
+    padding: 20px;
+
+    background: white;
+    border-radius: 14px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+
+    transition: transform 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.item-carrito:hover {
+    transform: translateY(-2px);
+
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================
+   INFORMACIÓN DEL PRODUCTO
+   ========================= */
+
+.item-info {
+    flex: 1;
+}
+
+.item-info h3 {
+    margin-bottom: 8px;
+    font-size: 20px;
+}
+
+.item-info p {
+    margin-bottom: 8px;
+    color: #666;
+}
+
+.item-info strong {
+    font-size: 17px;
+}
+
+
+/* =========================
+   ACCIONES
+   ========================= */
+
+.item-acciones {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.item-acciones button {
+    width: 38px;
+    height: 38px;
+
+    border: none;
+    border-radius: 9px;
+
+    background: #f1f1f1;
+    color: #333;
+
+    font-size: 18px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        transform 0.15s ease;
+}
+
+.item-acciones button:hover {
+    background: #e2e2e2;
+    transform: translateY(-1px);
+}
+
+.item-acciones button:active {
+    transform: scale(0.94);
+}
+
+.item-acciones span {
+    min-width: 30px;
+
+    text-align: center;
+
+    font-size: 17px;
+    font-weight: bold;
+}
+
+
+/* =========================
+   BOTÓN ELIMINAR
+   ========================= */
+
+.item-acciones .boton-eliminar {
+    margin-left: 8px;
+
+    background: #ffe5e5;
+    color: #d63031;
+}
+
+.item-acciones .boton-eliminar:hover {
+    background: #ffd1d1;
+}
+
+
+/* =========================
+   RESUMEN
+   ========================= */
+
+.resumen-carrito {
+    margin-top: 25px;
+    padding: 25px;
+
+    background: white;
+    border-radius: 14px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.resumen-carrito h2 {
+    margin-bottom: 20px;
+}
+
+
+/* =========================
+   TOTAL
+   ========================= */
+
+.total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 20px;
+    padding-top: 15px;
+
+    border-top: 1px solid #eee;
+}
+
+.total span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.total strong {
+    font-size: 25px;
+}
+
+
+/* =========================
+   WHATSAPP
+   ========================= */
+
+#boton-whatsapp {
+    width: 100%;
+    border: none;
+}
+
+
+/* =========================
+   CARRITO VACÍO
+   ========================= */
+
+.carrito-vacio {
+    padding: 50px 20px;
+
+    text-align: center;
+
+    background: white;
+    border-radius: 14px;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+}
+
+.carrito-vacio h2 {
+    margin-bottom: 10px;
+}
+
+.carrito-vacio p {
+    margin-bottom: 20px;
+    color: #666;
+}
+
+
+/* =========================
+   MÓVILES
+   ========================= */
+
+@media (max-width: 600px) {
+
+    .encabezado-carrito h1 {
+        font-size: 30px;
+    }
+
+    .item-carrito { 
+    display: flex;
+    margin-bottom: 15px;
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .item-acciones {
+        width: 100%;
+        justify-content: flex-end;
+    }
+
+    .resumen-carrito {
+        padding: 20px;
+    }
+}

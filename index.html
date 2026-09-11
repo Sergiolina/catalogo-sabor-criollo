@@ -1,72 +1,110 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Sabor Criollo</title>
-    <link rel="stylesheet" href="/CSS/index.css">
+
+    <link rel="stylesheet" href="CSS/global.css">
+    <link rel="stylesheet" href="CSS/index.css">
 </head>
 
 <body>
 
-    
-  <nav class="barra-navegacion">
+    <!-- Navegación -->
+    <nav class="barra-navegacion">
 
-    <a href="#inicio">🏠 Inicio</a>
+        <a href="index.html">🏠 Inicio</a>
 
-    <a href="#catalogo">🍽️ Catálogo</a>
+        <a href="Catalogo.html">🍽️ Catálogo</a>
 
-    <a href="#carrito">
-        🛒 Carrito
-        <span id="contador-nav">0</span>
-    </a>
+        <a href="Carrito.html">
+            🛒 Carrito
+            <span id="contador-nav">0</span>
+        </a>
 
-  </nav>
-  <header class="hero" id="inicio">
+    </nav>
 
-    <div>
-        <h1>Sabor Criollo</h1>
 
-        
-    </div>
+    <!-- Presentación -->
+    <header class="hero">
 
-    <p>Comida casera hecha con sabor ❤️</p>
+        <div class="hero-contenido">
 
-    <a href="#catalogo" class="boton">Catalago</a>
+            <h1>Sabor Criollo</h1>
 
-  </header>
+            <p>
+                Comida casera hecha con sabor ❤️
+            </p>
 
-    <main id="catalogo">
+            <a href="Catalogo.html" class="boton">
+                Ver catálogo
+            </a>
 
-    <section>
-        <h2>🍕 Comidas</h2>
-        <div id="lista-comidas"></div>
-    </section>
+        </div>
 
-    <section>
-        <h2>🥤 Bebidas</h2>
-        <div id="lista-bebidas"></div>
-    </section>
+    </header>
+
+
+    <!-- Información del negocio -->
+    <main>
+
+        <section class="presentacion">
+
+            <h2>Bienvenidos a Sabor Criollo 🍕</h2>
+
+            <p>
+                Disfruta de comida casera preparada con ingredientes
+                frescos y ese sabor que nos hace sentir como en casa.
+            </p>
+
+        </section>
+
+
+        <!-- Aquí posteriormente pondremos imágenes -->
+        <section class="galeria">
+
+            <h2>Nuestros sabores</h2>
+
+            <div class="galeria-contenedor">
+
+                <!-- Próximamente -->
+
+            </div>
+
+        </section>
+
+
+        <!-- Llamada al catálogo -->
+        <section class="llamada-catalogo">
+
+            <h2>¿Qué se te antoja hoy?</h2>
+
+            <p>
+                Explora nuestro catálogo y descubre nuestras opciones.
+            </p>
+
+            <a href="Catalogo.html" class="boton">
+                Explorar catálogo 🍽️
+            </a>
+
+        </section>
 
     </main>
-  <section id="carrito">
-    <h2>🛒 Tu carrito</h2>
 
-    <div id="lista-carrito"></div>
 
-    <div class="total-carrito">
-        <strong>Total: $<span id="total-carrito">0</span></strong>
-    </div>
-  </section>
-
-    <a class="whatsapp" href="https://wa.me/5350000000">
-        📱 Pedir por WhatsApp
-    </a>
-
+    <!-- Pie de página -->
     <footer>
+
         <p>© 2026 Sabor Criollo</p>
+
     </footer>
-  <script src="/js/index.js"></script>
+
+
+    <script src="js/index.js"></script>
 
 </body>
+
 </html>
