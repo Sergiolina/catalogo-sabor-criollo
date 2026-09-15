@@ -1,39 +1,39 @@
+alert("ESTE ES EL CATALOGO.JS NUEVO");
 // =========================
 // PRODUCTOS
 // =========================
+console.log("Catalogo.js cargado");
 
-const productos = [
-    {
-        id: 1,
-        nombre: "Pizza Especial",
-        descripcion: "Pizza con queso, jamón y vegetales.",
-        precio: 350,
-        categoria: "comidas"
-    },
-    {
-        id: 2,
-        nombre: "Hamburguesa Criolla",
-        descripcion: "Carne, queso, vegetales y salsa.",
-        precio: 250,
-        categoria: "comidas"
-    },
-    {
-        id: 3,
-        nombre: "Refresco",
-        descripcion: "Refresco frío.",
-        precio: 100,
-        categoria: "bebidas"
-    },
-    {
-        id: 4,
-        nombre: "Jugo Natural",
-        descripcion: "Jugo preparado al momento.",
-        precio: 150,
-        categoria: "bebidas"
+let productos = [];
+
+async function cargarProductos() {
+
+    try {
+
+        const respuesta = await fetch(
+            "http://localhost:5059/api/Productos"
+        );
+
+        if (!respuesta.ok) {
+            throw new Error(
+                "No se pudieron cargar los productos."
+            );
+        }
+
+        const productosAPI = await respuesta.json();
+
+        productos = productosAPI.filter(
+            producto => producto.disponible === true
+        );
+
+        mostrarProductos();
+
+    } catch (error) {
+
+        console.error(error);
+
     }
-];
-
-
+}
 // =========================
 // CARRITO
 // =========================
@@ -79,11 +79,11 @@ function mostrarProductos() {
             </div>
         `;
 
-        if (producto.categoria === "comidas") {
+        if (producto.categoria === "Comida") {
 
             listaComidas.appendChild(tarjeta);
 
-        } else if (producto.categoria === "bebidas") {
+        } else if (producto.categoria === "Bebida") {
 
             listaBebidas.appendChild(tarjeta);
         }
@@ -162,6 +162,6 @@ function actualizarContadorCarrito() {
 // INICIALIZACIÓN
 // =========================
 
-mostrarProductos();
+cargarProductos();
 
 actualizarContadorCarrito();
