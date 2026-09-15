@@ -5,14 +5,11 @@ alert("ESTE ES EL CATALOGO.JS NUEVO");
 console.log("Catalogo.js cargado");
 
 let productos = [];
-
 async function cargarProductos() {
 
     try {
 
-        const respuesta = await fetch(
-            "http://localhost:5059/api/Productos"
-        );
+        const respuesta = await fetch(`${API_URL}/api/Productos`);
 
         if (!respuesta.ok) {
             throw new Error(
