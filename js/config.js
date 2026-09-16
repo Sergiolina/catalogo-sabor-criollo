@@ -1,1 +1,1 @@
-const API_URL = "http://localhost:5059";
+const API_URL = "https://panel-admin-production-a0ea.up.railway.app";
