@@ -1,4 +1,4 @@
-alert("ESTE ES EL CATALOGO.JS NUEVO");
+alert("ESTE ES EL JS NUEVO");
 // =========================
 // PRODUCTOS
 // =========================
