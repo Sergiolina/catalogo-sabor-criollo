@@ -26,7 +26,11 @@
     flex-direction: column;
     gap: 14px;
 }
-
+#lista-carrito {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
 
 /* =========================
    PRODUCTO EN EL CARRITO
