@@ -1,8 +1,6 @@
-alert("ESTE ES EL JS NUEVO");
 // =========================
 // PRODUCTOS
 // =========================
-console.log("Catalogo.js cargado");
 
 let productos = [];
 async function cargarProductos() {
@@ -56,25 +54,32 @@ function mostrarProductos() {
 
         tarjeta.classList.add("producto");
 
-        tarjeta.innerHTML = `
-            <div class="producto-info">
+tarjeta.innerHTML = `
+    <img 
+        src="${producto.imagenUrl}" 
+        alt="${producto.nombre}"
+        class="producto-imagen"
+    >
 
-                <h3>${producto.nombre}</h3>
+    <div class="producto-contenido">
 
-                <p>${producto.descripcion}</p>
+        <h3>${producto.nombre}</h3>
 
-            </div>
+        <p>${producto.descripcion}</p>
 
-            <div class="producto-accion">
+        <div class="producto-accion">
 
-                <strong>$${producto.precio}</strong>
+            <strong>$${producto.precio}</strong>
 
-                <button onclick="agregarAlCarrito(${producto.id})">
-                    Agregar
-                </button>
+            <button onclick="agregarAlCarrito(${producto.id})">
+                Agregar
+            </button>
 
-            </div>
-        `;
+        </div>
+
+    </div>
+`;
+        
 
         if (producto.categoria === "Comida") {
 

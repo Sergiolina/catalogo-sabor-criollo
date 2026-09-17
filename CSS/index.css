@@ -3,26 +3,57 @@
    ========================= */
 
 .hero {
-    background: #222;
-    color: white;
-    text-align: center;
+    position: relative;
+    overflow: hidden;
 
-    padding: 80px 20px;
+    background: var(--color-tinta);
+    color: var(--color-fondo);
+
+    padding: 90px 20px 70px;
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        radial-gradient(circle at 85% 20%, rgba(217, 164, 65, 0.18), transparent 55%),
+        radial-gradient(circle at 10% 90%, rgba(196, 87, 31, 0.22), transparent 50%);
+    pointer-events: none;
 }
 
 .hero-contenido {
-    max-width: 700px;
+    position: relative;
+    max-width: 620px;
     margin: 0 auto;
+    text-align: center;
+}
+
+.hero-etiqueta {
+    display: inline-block;
+    margin-bottom: 18px;
+
+    padding: 6px 14px;
+
+    border-radius: 999px;
+    background: rgba(217, 164, 65, 0.16);
+
+    color: var(--color-dorado);
+    font-size: 0.85rem;
+    font-weight: 600;
 }
 
 .hero h1 {
-    font-size: 42px;
-    margin-bottom: 12px;
+    font-size: clamp(2.4rem, 6vw, 3.4rem);
+    line-height: 1.05;
+    margin-bottom: 16px;
 }
 
 .hero p {
-    font-size: 18px;
-    margin-bottom: 25px;
+    font-size: 1.1rem;
+    color: #E8DCC8;
+    margin-bottom: 30px;
 }
 
 
@@ -32,15 +63,19 @@
 
 .presentacion {
     text-align: center;
-    padding: 30px 10px;
+    padding: 40px 10px 10px;
+}
+
+.presentacion h2 {
+    margin-bottom: 14px;
 }
 
 .presentacion p {
-    max-width: 650px;
+    max-width: 620px;
     margin: 0 auto;
 
-    color: #666;
-    line-height: 1.6;
+    color: var(--color-tinta-suave);
+    line-height: 1.65;
 }
 
 
@@ -48,17 +83,30 @@
    GALERÍA
    ========================= */
 
-.galeria {
-    text-align: center;
+.galeria-contenedor {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+
+    min-height: 140px;
 }
 
-.galeria-contenedor {
-    min-height: 180px;
+.galeria-contenedor:empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    border-radius: 14px;
-    background: white;
+    min-height: 140px;
 
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+    border: 1.5px dashed var(--color-linea);
+    border-radius: 16px;
+
+    color: var(--color-tinta-suave);
+    font-size: 0.9rem;
+}
+
+.galeria-contenedor:empty::before {
+    content: "Fotos de nuestros platos, muy pronto 📸";
 }
 
 
@@ -67,17 +115,29 @@
    ========================= */
 
 .llamada-catalogo {
-    padding: 35px 20px;
+    padding: 44px 28px;
 
     text-align: center;
 
-    background: white;
-    border-radius: 14px;
+    background: var(--color-verde);
+    color: var(--color-fondo);
+    border-radius: var(--radio-tarjeta);
+}
 
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+.llamada-catalogo h2 {
+    color: var(--color-fondo);
 }
 
 .llamada-catalogo p {
-    margin-bottom: 20px;
-    color: #666;
+    margin-bottom: 22px;
+    color: #D9E2D6;
+}
+
+.llamada-catalogo .boton {
+    background: var(--color-dorado);
+    color: var(--color-tinta);
+}
+
+.llamada-catalogo .boton:hover {
+    background: #C79236;
 }
