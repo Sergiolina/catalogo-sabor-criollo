@@ -1,33 +1,40 @@
 /* =========================================================
-   SABOR CRIOLLO — SISTEMA DE DISEÑO
-   Paleta inspirada en cocina criolla: achiote, cilantro,
-   barro cocido y papel de cocina.
+   SABOR CRIOLLO — SISTEMA DE DISEÑO (v2)
+   Basado en DESIGN.md (estilo "Shop"), adaptado a comida:
+   lienzo gris claro, tarjetas blancas muy redondeadas,
+   sombras suaves en vez de bordes y UN solo acento (achiote).
    ========================================================= */
 
 :root {
     /* Color */
-    --color-fondo: #FAF2E4;         /* papel crema cálido */
-    --color-fondo-crudo: #F2E7D3;   /* franjas / secciones alternas */
-    --color-tarjeta: #FFFCF6;       /* blanco cálido para tarjetas */
-    --color-tinta: #2B1D14;         /* café espresso, texto principal */
-    --color-tinta-suave: #6B5A48;   /* texto secundario */
-    --color-acento: #C4571F;        /* achiote / barro cocido */
-    --color-acento-oscuro: #9C4315; /* hover del acento */
-    --color-dorado: #D9A441;        /* maíz / mostaza, detalles */
-    --color-verde: #3E5641;         /* cilantro / orégano, contraste */
-    --color-linea: #E4D6BC;         /* bordes sutiles sobre crema */
+    --color-fondo: #F2F4F5;          /* lienzo: fondo de la página */
+    --color-tarjeta: #FFFFFF;        /* superficie: tarjetas, pills, inputs */
+    --color-tinta: #000000;          /* texto principal */
+    --color-tinta-suave: #787574;    /* texto secundario */
+    --color-linea: #EBEBEB;          /* bordes finísimos (solo en pills) */
+    --color-oscuro: #332F2D;         /* superficies oscuras: resumen, footer */
+    --color-acento: #C4571F;         /* achiote: el ÚNICO acento */
+    --color-acento-oscuro: #9C4315;  /* hover del acento */
     --color-error: #A23B2E;
     --color-error-fondo: #F6E2DC;
 
-    /* Tipografía */
-    --fuente-display: "Fraunces", "Georgia", serif;
-    --fuente-texto: "Work Sans", "Segoe UI", sans-serif;
+    /* Tipografía (una sola familia; jerarquía por tamaño y tracking) */
+    --fuente: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 
     /* Forma */
-    --radio-tarjeta: 18px 18px 18px 4px;
-    --radio-boton: 10px;
-    --sombra-tarjeta: 0 4px 18px rgba(43, 29, 20, 0.08);
-    --sombra-tarjeta-hover: 0 10px 26px rgba(43, 29, 20, 0.14);
+    --radio-tarjeta: 28px;
+    --radio-imagen: 20px;            /* 8px menos que la tarjeta = marco blanco */
+    --radio-pildora: 9999px;
+
+    /* Sombras */
+    --sombra-suave: 0 2px 8px rgba(0, 0, 0, 0.06);
+    --sombra-tarjeta: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    --sombra-elevada: 0 4px 24px rgba(0, 0, 0, 0.12);
+    --sombra-acento: 0 4px 24px rgba(196, 87, 31, 0.34);
+
+    /* Espaciado */
+    --espacio-seccion: 64px;
+    --ancho-max: 1200px;
 }
 
 
@@ -46,34 +53,47 @@ html {
 }
 
 body {
-    font-family: var(--fuente-texto);
+    font-family: var(--fuente);
+    font-size: 1rem;
+    letter-spacing: -0.031em;
+    line-height: 1.4;
+
     background: var(--color-fondo);
     color: var(--color-tinta);
-    line-height: 1.5;
-    padding-bottom: 40px;
+
+    -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3 {
-    font-family: var(--fuente-display);
+    font-family: var(--fuente);
     font-weight: 600;
-    letter-spacing: -0.01em;
+    line-height: 1.1;
+    letter-spacing: -0.05em;
+}
+
+h3 {
+    letter-spacing: -0.02em;
+}
+
+button {
+    font-family: inherit;
+    letter-spacing: inherit;
 }
 
 main {
     width: 100%;
-    max-width: 920px;
+    max-width: var(--ancho-max);
     margin: 0 auto;
-    padding: 30px 20px;
+    padding: 24px 20px;
 }
 
 section {
-    margin-bottom: 40px;
+    margin-bottom: var(--espacio-seccion);
 }
 
 section h2 {
-    margin-bottom: 18px;
-    font-size: 1.8rem;
-    color: var(--color-tinta);
+    margin-bottom: 20px;
+    font-size: 1.5rem;
 }
 
 a {
@@ -81,46 +101,54 @@ a {
 }
 
 :focus-visible {
-    outline: 3px solid var(--color-dorado);
-    outline-offset: 2px;
+    outline: 2px solid var(--color-acento);
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 
 /* =========================
-   NAVEGACIÓN
+   NAVEGACIÓN (pill flotante)
    ========================= */
 
 .barra-navegacion {
     position: sticky;
-    top: 0;
+    top: 12px;
     z-index: 1000;
 
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 6px;
+    gap: 4px;
 
-    padding: 14px 16px;
+    width: fit-content;
+    max-width: calc(100% - 24px);
+    margin: 12px auto 0;
+    padding: 6px;
 
-    background: rgba(250, 242, 228, 0.92);
-    backdrop-filter: blur(6px);
-    border-bottom: 1px solid var(--color-linea);
+    background: var(--color-tarjeta);
+    border: 1px solid var(--color-linea);
+    border-radius: var(--radio-pildora);
+    box-shadow: var(--sombra-suave);
 }
 
 .barra-navegacion a {
-    position: relative;
-
     display: inline-flex;
     align-items: center;
     gap: 6px;
 
-    padding: 8px 14px;
+    padding: 9px 16px;
 
-    border-radius: 999px;
+    border-radius: var(--radio-pildora);
 
     color: var(--color-tinta-suave);
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 500;
     font-size: 0.95rem;
 
     transition: color 0.2s ease, background 0.2s ease;
@@ -128,13 +156,19 @@ a {
 
 .barra-navegacion a:hover {
     color: var(--color-tinta);
-    background: var(--color-fondo-crudo);
+    background: var(--color-fondo);
 }
 
 .barra-navegacion a.activo {
-    color: var(--color-acento);
-    background: var(--color-tarjeta);
-    box-shadow: inset 0 0 0 1px var(--color-linea);
+    color: var(--color-tinta);
+    background: var(--color-fondo);
+}
+
+@media (max-width: 420px) {
+    .barra-navegacion a {
+        padding: 8px 10px;
+        font-size: 0.85rem;
+    }
 }
 
 
@@ -145,19 +179,21 @@ a {
 #contador-nav {
     display: inline-flex;
 
-    min-width: 19px;
-    height: 19px;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
 
     align-items: center;
     justify-content: center;
 
-    border-radius: 50%;
+    border-radius: var(--radio-pildora);
 
     background: var(--color-acento);
     color: var(--color-tarjeta);
 
-    font-size: 0.7rem;
-    font-weight: 700;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0;
 }
 
 
@@ -171,29 +207,28 @@ a {
     justify-content: center;
     gap: 8px;
 
-    padding: 14px 26px;
+    padding: 14px 28px;
 
     border: none;
-    border-radius: var(--radio-boton);
+    border-radius: var(--radio-pildora);
 
     background: var(--color-acento);
     color: var(--color-tarjeta);
 
     text-decoration: none;
-    font-weight: 700;
+    font-weight: 500;
     font-size: 1rem;
 
     cursor: pointer;
+    box-shadow: var(--sombra-acento);
 
     transition:
         transform 0.15s ease,
-        background 0.2s ease,
-        box-shadow 0.2s ease;
+        background 0.2s ease;
 }
 
 .boton:hover {
     background: var(--color-acento-oscuro);
-    box-shadow: 0 6px 16px rgba(196, 87, 31, 0.28);
 }
 
 .boton:active {
@@ -201,14 +236,14 @@ a {
 }
 
 .boton-secundario {
-    background: transparent;
+    background: var(--color-tarjeta);
     color: var(--color-tinta);
-    box-shadow: inset 0 0 0 1.5px var(--color-linea);
+    border: 1px solid var(--color-linea);
+    box-shadow: var(--sombra-suave);
 }
 
 .boton-secundario:hover {
-    background: var(--color-fondo-crudo);
-    box-shadow: inset 0 0 0 1.5px var(--color-tinta-suave);
+    background: var(--color-fondo);
 }
 
 
@@ -217,23 +252,23 @@ a {
    ========================= */
 
 footer {
-    margin-top: 60px;
-    padding: 34px 20px 26px;
+    margin-top: var(--espacio-seccion);
+    padding: 40px 20px 32px;
 
     text-align: center;
 
-    background: var(--color-tinta);
-    color: #DCCFBC;
+    background: var(--color-oscuro);
+    color: #ACB0AA;
 }
 
 footer p {
     font-size: 0.85rem;
-    letter-spacing: 0.02em;
 }
 
 footer .footer-marca {
-    font-family: var(--fuente-display);
-    font-size: 1.1rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.05em;
     color: var(--color-tarjeta);
-    margin-bottom: 6px;
+    margin-bottom: 8px;
 }

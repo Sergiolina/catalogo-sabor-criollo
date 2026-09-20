@@ -3,57 +3,48 @@
    ========================= */
 
 .hero {
-    position: relative;
-    overflow: hidden;
-
-    background: var(--color-tinta);
-    color: var(--color-fondo);
-
-    padding: 90px 20px 70px;
-}
-
-.hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-
-    background:
-        radial-gradient(circle at 85% 20%, rgba(217, 164, 65, 0.18), transparent 55%),
-        radial-gradient(circle at 10% 90%, rgba(196, 87, 31, 0.22), transparent 50%);
-    pointer-events: none;
+    padding: 88px 20px 56px;
+    text-align: center;
 }
 
 .hero-contenido {
-    position: relative;
-    max-width: 620px;
+    max-width: 640px;
     margin: 0 auto;
-    text-align: center;
 }
 
 .hero-etiqueta {
     display: inline-block;
-    margin-bottom: 18px;
+    margin-bottom: 24px;
 
-    padding: 6px 14px;
+    padding: 6px 16px;
 
-    border-radius: 999px;
-    background: rgba(217, 164, 65, 0.16);
+    border-radius: var(--radio-pildora);
+    background: var(--color-tarjeta);
+    box-shadow: var(--sombra-suave);
 
-    color: var(--color-dorado);
+    color: var(--color-tinta-suave);
     font-size: 0.85rem;
-    font-weight: 600;
+    font-weight: 500;
 }
 
 .hero h1 {
-    font-size: clamp(2.4rem, 6vw, 3.4rem);
-    line-height: 1.05;
-    margin-bottom: 16px;
+    font-size: clamp(2.8rem, 9vw, 5rem);
+    line-height: 1;
+    margin-bottom: 20px;
+}
+
+/* El "punto" del wordmark: el acento firma la marca */
+.hero h1::after {
+    content: ".";
+    color: var(--color-acento);
 }
 
 .hero p {
+    max-width: 480px;
+    margin: 0 auto 32px;
+
     font-size: 1.1rem;
-    color: #E8DCC8;
-    margin-bottom: 30px;
+    color: var(--color-tinta-suave);
 }
 
 
@@ -63,7 +54,7 @@
 
 .presentacion {
     text-align: center;
-    padding: 40px 10px 10px;
+    padding: 24px 10px 0;
 }
 
 .presentacion h2 {
@@ -71,11 +62,11 @@
 }
 
 .presentacion p {
-    max-width: 620px;
+    max-width: 560px;
     margin: 0 auto;
 
     color: var(--color-tinta-suave);
-    line-height: 1.65;
+    line-height: 1.55;
 }
 
 
@@ -85,10 +76,10 @@
 
 .galeria-contenedor {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 14px;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
 
-    min-height: 140px;
+    min-height: 160px;
 }
 
 .galeria-contenedor:empty {
@@ -96,10 +87,9 @@
     align-items: center;
     justify-content: center;
 
-    min-height: 140px;
-
-    border: 1.5px dashed var(--color-linea);
-    border-radius: 16px;
+    background: var(--color-tarjeta);
+    border-radius: var(--radio-tarjeta);
+    box-shadow: var(--sombra-tarjeta);
 
     color: var(--color-tinta-suave);
     font-size: 0.9rem;
@@ -115,29 +105,20 @@
    ========================= */
 
 .llamada-catalogo {
-    padding: 44px 28px;
+    padding: 56px 28px;
 
     text-align: center;
 
-    background: var(--color-verde);
-    color: var(--color-fondo);
+    background: var(--color-tarjeta);
     border-radius: var(--radio-tarjeta);
+    box-shadow: var(--sombra-tarjeta);
 }
 
 .llamada-catalogo h2 {
-    color: var(--color-fondo);
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
 }
 
 .llamada-catalogo p {
-    margin-bottom: 22px;
-    color: #D9E2D6;
-}
-
-.llamada-catalogo .boton {
-    background: var(--color-dorado);
-    color: var(--color-tinta);
-}
-
-.llamada-catalogo .boton:hover {
-    background: #C79236;
+    margin-bottom: 28px;
+    color: var(--color-tinta-suave);
 }
