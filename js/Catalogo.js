@@ -1,34 +1,12 @@
 // =========================
-// PRODUCTOS
+// ESTADO DEL CATÁLOGO
 // =========================
 
-let productos = [];
-async function cargarProductos() {
+let productos = [];          // Solo productos disponibles (vienen de la API)
+let categorias = [];         // Ordenadas por el campo "orden" (vienen de la API)
+let categoriaActiva = null;  // null = "Todos"
 
-    try {
 
-        const respuesta = await fetch(`${API_URL}/api/Productos`);
-
-        if (!respuesta.ok) {
-            throw new Error(
-                "No se pudieron cargar los productos."
-            );
-        }
-
-        const productosAPI = await respuesta.json();
-
-        productos = productosAPI.filter(
-            producto => producto.disponible === true
-        );
-
-        mostrarProductos();
-
-    } catch (error) {
-
-        console.error(error);
-
-    }
-}
 // =========================
 // CARRITO
 // =========================
@@ -37,59 +15,301 @@ let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 
 
 // =========================
-// MOSTRAR PRODUCTOS
+// UTILIDADES
 // =========================
+
+// Los textos vienen del backend: se escapan antes de meterlos en innerHTML.
+function escaparHTML(texto) {
+
+    return String(texto ?? "").replace(/[&<>"']/g, caracter => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "\"": "&quot;",
+        "'": "&#39;"
+    }[caracter]));
+}
+
+
+// =========================
+// CARGAR CATEGORÍAS (API)
+// =========================
+
+async function cargarCategorias() {
+
+    try {
+
+        const respuesta = await fetch(`${API_URL}/api/Categorias`);
+
+        if (!respuesta.ok) {
+            throw new Error("No se pudieron cargar las categorías.");
+        }
+
+        const categoriasAPI = await respuesta.json();
+
+        if (!Array.isArray(categoriasAPI)) {
+            throw new Error("Respuesta inesperada al cargar las categorías.");
+        }
+
+        // Respeta el orden definido en el backend
+        return [...categoriasAPI].sort(
+            (a, b) => (a.orden ?? 0) - (b.orden ?? 0)
+        );
+
+    } catch (error) {
+
+        // Sin categorías el catálogo sigue funcionando (solo "Todos")
+        console.error(error);
+
+        return [];
+    }
+}
+
+
+// =========================
+// CARGAR PRODUCTOS (API)
+// =========================
+
+async function cargarProductos() {
+
+    const respuesta = await fetch(`${API_URL}/api/Productos`);
+
+    if (!respuesta.ok) {
+        throw new Error("No se pudieron cargar los productos.");
+    }
+
+    const productosAPI = await respuesta.json();
+
+    if (!Array.isArray(productosAPI)) {
+        throw new Error("Respuesta inesperada al cargar los productos.");
+    }
+
+    return productosAPI.filter(
+        producto => producto.disponible === true
+    );
+}
+
+
+// =========================
+// MENSAJES (cargando / error / vacío)
+// =========================
+
+function mostrarMensaje(texto, esError = false) {
+
+    const contenedor = document.getElementById("catalogo-productos");
+
+    const mensaje = document.createElement("p");
+
+    mensaje.classList.add("mensaje-catalogo");
+
+    if (esError) {
+        mensaje.classList.add("error");
+    }
+
+    mensaje.textContent = texto;
+
+    contenedor.innerHTML = "";
+    contenedor.appendChild(mensaje);
+}
+
+
+// =========================
+// RENDERIZAR FILTROS
+// =========================
+
+function renderizarFiltros() {
+
+    const contenedor = document.getElementById("filtros-categorias");
+
+    contenedor.innerHTML = "";
+
+    const opciones = [{ id: null, nombre: "Todos" }, ...categorias];
+
+    opciones.forEach(opcion => {
+
+        const boton = document.createElement("button");
+
+        boton.type = "button";
+        boton.classList.add("filtro-categoria");
+        boton.textContent = opcion.nombre;
+        boton.dataset.id = opcion.id === null ? "" : String(opcion.id);
+
+        boton.addEventListener(
+            "click",
+            () => filtrarProductos(opcion.id)
+        );
+
+        contenedor.appendChild(boton);
+    });
+
+    actualizarFiltroActivo();
+}
+
+function actualizarFiltroActivo() {
+
+    const idActivo = categoriaActiva === null ? "" : String(categoriaActiva);
+
+    document
+        .querySelectorAll("#filtros-categorias .filtro-categoria")
+        .forEach(boton => {
+
+            const activo = boton.dataset.id === idActivo;
+
+            boton.classList.toggle("activo", activo);
+            boton.setAttribute("aria-pressed", String(activo));
+        });
+}
+
+
+// =========================
+// FILTRAR PRODUCTOS
+// =========================
+
+function filtrarProductos(categoriaId) {
+
+    categoriaActiva = categoriaId;
+
+    actualizarFiltroActivo();
+
+    mostrarProductos();
+}
+
+
+// =========================
+// RENDERIZAR PRODUCTOS
+// =========================
+
+function crearTarjetaProducto(producto) {
+
+    const tarjeta = document.createElement("div");
+
+    tarjeta.classList.add("producto");
+
+    // Si no hay imagen válida no se dibuja <img> (no se inventan imágenes)
+    const tieneImagen =
+        typeof producto.imagenUrl === "string" &&
+        producto.imagenUrl.trim() !== "";
+
+    const imagen = tieneImagen
+        ? `<img
+                src="${escaparHTML(producto.imagenUrl.trim())}"
+                alt="${escaparHTML(producto.nombre)}"
+                class="producto-imagen"
+                onerror="this.remove()"
+           >`
+        : "";
+
+    const descripcion = producto.descripcion
+        ? `<p>${escaparHTML(producto.descripcion)}</p>`
+        : "";
+
+    tarjeta.innerHTML = `
+        ${imagen}
+
+        <div class="producto-contenido">
+
+            <h3>${escaparHTML(producto.nombre)}</h3>
+
+            ${descripcion}
+
+            <div class="producto-accion">
+
+                <strong>$${escaparHTML(producto.precio)}</strong>
+
+                <button type="button">
+                    Agregar
+                </button>
+
+            </div>
+
+        </div>
+    `;
+
+    tarjeta
+        .querySelector("button")
+        .addEventListener("click", () => agregarAlCarrito(producto.id));
+
+    return tarjeta;
+}
+
+function crearGrupoProductos(titulo, items) {
+
+    const seccion = document.createElement("section");
+
+    seccion.classList.add("categoria-productos");
+
+    if (titulo) {
+
+        const encabezado = document.createElement("h2");
+
+        encabezado.textContent = titulo;
+
+        seccion.appendChild(encabezado);
+    }
+
+    const lista = document.createElement("div");
+
+    lista.classList.add("lista-productos");
+
+    items.forEach(producto => {
+        lista.appendChild(crearTarjetaProducto(producto));
+    });
+
+    seccion.appendChild(lista);
+
+    return seccion;
+}
 
 function mostrarProductos() {
 
-    const listaComidas = document.getElementById("lista-comidas");
-    const listaBebidas = document.getElementById("lista-bebidas");
+    const contenedor = document.getElementById("catalogo-productos");
 
-    listaComidas.innerHTML = "";
-    listaBebidas.innerHTML = "";
+    if (productos.length === 0) {
+        mostrarMensaje("No hay productos disponibles por el momento.");
+        return;
+    }
 
-    productos.forEach(producto => {
+    const visibles = categoriaActiva === null
+        ? productos
+        : productos.filter(
+            producto => producto.categoriaId === categoriaActiva
+        );
 
-        const tarjeta = document.createElement("div");
+    if (visibles.length === 0) {
+        mostrarMensaje("No hay productos disponibles en esta categoría.");
+        return;
+    }
 
-        tarjeta.classList.add("producto");
+    // Agrupa por categoría (relación por categoriaId) respetando el orden
+    const grupos = categorias
+        .map(categoria => ({
+            titulo: categoria.nombre,
+            items: visibles.filter(
+                producto => producto.categoriaId === categoria.id
+            )
+        }))
+        .filter(grupo => grupo.items.length > 0);
 
-tarjeta.innerHTML = `
-    <img 
-        src="${producto.imagenUrl}" 
-        alt="${producto.nombre}"
-        class="producto-imagen"
-    >
+    // Productos cuya categoría no existe en /api/Categorias
+    const idsConocidos = new Set(categorias.map(categoria => categoria.id));
 
-    <div class="producto-contenido">
+    const sinCategoria = visibles.filter(
+        producto => !idsConocidos.has(producto.categoriaId)
+    );
 
-        <h3>${producto.nombre}</h3>
+    if (sinCategoria.length > 0) {
+        grupos.push({
+            titulo: categorias.length > 0 ? "Otros" : null,
+            items: sinCategoria
+        });
+    }
 
-        <p>${producto.descripcion}</p>
+    contenedor.innerHTML = "";
 
-        <div class="producto-accion">
-
-            <strong>$${producto.precio}</strong>
-
-            <button onclick="agregarAlCarrito(${producto.id})">
-                Agregar
-            </button>
-
-        </div>
-
-    </div>
-`;
-        
-
-        if (producto.categoria === "Comida") {
-
-            listaComidas.appendChild(tarjeta);
-
-        } else if (producto.categoria === "Bebida") {
-
-            listaBebidas.appendChild(tarjeta);
-        }
-
+    grupos.forEach(grupo => {
+        contenedor.appendChild(
+            crearGrupoProductos(grupo.titulo, grupo.items)
+        );
     });
 }
 
@@ -164,6 +384,40 @@ function actualizarContadorCarrito() {
 // INICIALIZACIÓN
 // =========================
 
-cargarProductos();
+async function inicializarCatalogo() {
+
+    mostrarMensaje("Cargando catálogo...");
+
+    try {
+
+        // Una sola llamada por endpoint, en paralelo
+        const [categoriasAPI, productosAPI] = await Promise.all([
+            cargarCategorias(),
+            cargarProductos()
+        ]);
+
+        categorias = categoriasAPI;
+        productos = productosAPI;
+
+    } catch (error) {
+
+        console.error(error);
+
+        document.getElementById("filtros-categorias").innerHTML = "";
+
+        mostrarMensaje(
+            "No se pudieron cargar los productos. Intenta de nuevo en unos minutos.",
+            true
+        );
+
+        return;
+    }
+
+    renderizarFiltros();
+
+    mostrarProductos();
+}
+
+inicializarCatalogo();
 
 actualizarContadorCarrito();

@@ -228,3 +228,90 @@
         font-size: 0.85rem;
     }
 }
+
+
+/* =========================
+   FILTROS POR CATEGORÍA
+   ========================= */
+
+.filtros-categorias {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+
+    margin-bottom: 32px;
+}
+
+.filtros-categorias:empty {
+    display: none;
+}
+
+.filtro-categoria {
+    border: 1px solid var(--color-linea);
+    border-radius: 999px;
+
+    padding: 9px 18px;
+
+    background: var(--color-tarjeta);
+    color: var(--color-tinta);
+
+    font-family: var(--fuente-texto);
+    font-size: 0.92rem;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.filtro-categoria:hover {
+    border-color: var(--color-acento);
+    color: var(--color-acento-oscuro);
+}
+
+.filtro-categoria.activo {
+    background: var(--color-acento);
+    border-color: var(--color-acento);
+    color: var(--color-tarjeta);
+}
+
+
+/* =========================
+   MENSAJES (cargando / error / vacío)
+   ========================= */
+
+.mensaje-catalogo {
+    padding: 30px;
+    text-align: center;
+
+    color: var(--color-tinta-suave);
+    background: var(--color-tarjeta);
+    border-radius: 14px;
+}
+
+.mensaje-catalogo.error {
+    color: var(--color-error);
+    background: var(--color-error-fondo);
+}
+
+
+@media (max-width: 600px) {
+
+    .filtros-categorias {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+
+        padding-bottom: 6px;
+        margin-bottom: 24px;
+    }
+
+    .filtro-categoria {
+        flex-shrink: 0;
+        white-space: nowrap;
+    }
+}
