@@ -96,7 +96,7 @@
 }
 
 .galeria-contenedor:empty::before {
-    content: "Fotos de nuestros platos, muy pronto 📸";
+    content: "Fotos de nuestros platos, muy pronto";
 }
 
 
